@@ -1,4 +1,4 @@
 # EscrumGolang
 # Draft
-# Backend on Golang for Escrum Angular client
+# Backend for Escrum Angular client
 

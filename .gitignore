@@ -1,0 +1,10 @@
+.idea
+.data
+.bin
+.DS_Store
+Thumbs.db
+.exe
+.docker_build/
+.env
+cover.out
+.vscode/

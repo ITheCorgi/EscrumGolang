@@ -1,6 +1,7 @@
 package config
 
 import (
+	"io/ioutil"
 	"os"
 
 	"gopkg.in/yaml.v3"
@@ -8,16 +9,16 @@ import (
 
 type (
 	ConfigMap struct {
-		MongoDbAuth MongoDbAuthConfig
-		HTTPData    HTTPConfig
-		UserAuth    AuthConfig
+		MongoDb  MongoDbAuthConfig
+		HTTPData HTTPConfig
+		UserAuth AuthConfig
 	}
 
 	MongoDbAuthConfig struct {
 		URI      string `yaml:"uri"`
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
-		Name     string `yaml:"dbName"`
+		Name     string `yaml:"name"`
 	}
 
 	HTTPConfig struct {
@@ -39,11 +40,11 @@ func GetConfig(path string) (*ConfigMap, error) {
 	if err != nil {
 		return nil, err
 	}
+	buffer, _ := ioutil.ReadAll(ymlfile)
 	defer ymlfile.Close()
 
-	//Decoding opened config file
-	ymlDecoding := yaml.NewDecoder(ymlfile)
-	if err := ymlDecoding.Decode(&config); err != nil {
+	err = yaml.Unmarshal(buffer, config)
+	if err != nil {
 		return nil, err
 	}
 	return config, nil

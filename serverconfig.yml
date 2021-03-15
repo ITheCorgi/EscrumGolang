@@ -1,17 +1,17 @@
-server:
-  uri: "mongodb://localhost"
+httpdata:
   host: "127.0.0.1"
   port: 27017
   maxHeaderBytes: 1
   readTimeout: 10s
   writeTimeout: 10s
 
-mongo:
+mongodb:
+  uri: "mongodb://localhost"
   user: ""
   password: "" 
-  dbName: escrum
+  name: escrum
 
-auth:
+userauth:
   accessTokenTTL: 120m
   refreshTokenTTL: 43200m #30 days
   verificationCodeLength: 8

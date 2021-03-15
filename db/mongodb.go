@@ -11,8 +11,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-//newDbInstance creates a new connection to a MongoDb instance using provided uri and credentials
-func newDbInstance(uri, username, password string) (*mongo.Client, error) {
+//NewDbInstance creates a new connection to a MongoDb instance using provided uri and credentials
+func NewDbInstance(uri, username, password string) (*mongo.Client, error) {
 	timeout := 10 * time.Second
 	opts := options.Client().ApplyURI(uri)
 

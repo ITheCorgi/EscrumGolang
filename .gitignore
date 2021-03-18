@@ -3,7 +3,8 @@
 .bin
 .DS_Store
 Thumbs.db
-.exe
+*.exe
+*.exe~
 .docker_build/
 .env
 cover.out

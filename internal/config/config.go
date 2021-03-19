@@ -9,12 +9,12 @@ import (
 
 type (
 	ConfigMap struct {
-		MongoDb  MongoDbAuthConfig
+		Mongo    MongoConfig
 		HTTPData HTTPConfig
 		UserAuth AuthConfig
 	}
 
-	MongoDbAuthConfig struct {
+	MongoConfig struct {
 		URI      string `yaml:"uri"`
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`

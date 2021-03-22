@@ -1,9 +1,15 @@
 package main
 
-import "github.com/ITheCorgi/EscrumGolang/internal/app"
+import (
+	"log"
 
-const serverConfigurationPath = "../../configs/serverconfig.yml"
+	"github.com/ITheCorgi/EscrumGolang/internal/app"
+)
+
+const srvCfgPath = "configs/serverconfig.yml"
 
 func main() {
-	app.Run(serverConfigurationPath)
+	if err := app.Run(srvCfgPath); err != nil {
+		log.Println(err.Error())
+	}
 }

@@ -1,7 +1,7 @@
 package app
 
 import (
-	"log"
+	"context"
 	"os"
 	"os/signal"
 	"syscall"
@@ -10,35 +10,31 @@ import (
 	"github.com/ITheCorgi/EscrumGolang/internal/config"
 )
 
-//terminateHandler checks for key combo to terminate server connection
-func setTerminateHandler() {
-	var keyboardInterupt = make(chan os.Signal, 1)
-	signal.Notify(keyboardInterupt, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
-	go func() {
-		<-keyboardInterupt
-		os.Exit(1)
-	}()
+func terminationHandler() {
+	var terminate = make(chan os.Signal, 1)
+	signal.Notify(terminate, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
+	<-terminate
 }
 
-func Run(configFilePath string) {
-	setTerminateHandler()
+func Run(path string) error {
+	terminationHandler()
 
-	cfg, err := config.GetConfig(configFilePath)
+	cfg, err := config.GetConfig(path)
 	if err != nil {
-		log.Println(err.Error())
-		return
+		return err
 	}
 
 	mongoClient, err := db.NewDbInstance(cfg.Mongo.URI, cfg.Mongo.User, cfg.Mongo.Password)
 	if err != nil {
-		log.Println("Error is occured during connecting to Mongo database")
-		return
+		return err
 	}
 
-	db := mongoClient.Database(cfg.Mongo.Name)
+	//FIXME: introduce repo at a next task
+	// ...
 
-	//for debugging purpose
-	log.Printf("Mongo URI: %s, User: %s, Password: %s", cfg.Mongo.URI, cfg.Mongo.User, cfg.Mongo.Password)
-	log.Println(mongoClient)
-	log.Println(db)
+	if err := mongoClient.Disconnect(context.Background()); err != nil {
+		return err
+	}
+
+	return nil
 }

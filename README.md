@@ -1,2 +1,3 @@
 # EscrumGolang
-This is a Backend for Angular Escrum client written on Golang.
+# Draft
+# Backend for Escrum Angular client

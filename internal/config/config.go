@@ -3,6 +3,7 @@ package config
 import (
 	"io/ioutil"
 	"os"
+	"time"
 
 	"gopkg.in/yaml.v3"
 )
@@ -22,8 +23,11 @@ type (
 	}
 
 	HTTPConfig struct {
-		Host string `yaml:"host"`
-		Port string `yaml:"port"`
+		Host           string        `yaml:"host"`
+		Port           string        `yaml:"port"`
+		ReadTimeout    time.Duration `yaml:"readTimeout"`
+		WriteTimeout   time.Duration `yaml:"writeTimeout"`
+		MaxHeaderBytes int           `yaml:"maxHeaderBytes"`
 	}
 
 	AuthConfig struct {
